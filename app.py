@@ -1,20 +1,26 @@
 import json
 import os
 import folium
-#import webview
+import pymongo
+# import webview
 from folium.plugins import TagFilterButton, FastMarkerCluster
+from pymongo import MongoClient
 from time import sleep
 from selenium import webdriver
 from flask import Flask, redirect, request, flash, render_template, render_template_string
 from selenium.webdriver.common.by import By
 
+client = MongoClient("mongodb+srv://alvarosalvino:Dmxsfsqp%40159@imap.aznrbqq.mongodb.net/?retryWrites=true&w=majority&appName=imap")
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Ti-Malta"
 
-#window = webview.create_window('Mapa de Polos Malta', app)
+# window = webview.create_window('Mapa de Polos Malta', app)
+
 
 arquivos = os.listdir()
 logado = False
+
 
 @app.route('/')
 def home():
@@ -22,22 +28,14 @@ def home():
     logado = False
     return render_template("login.html")
 
+
 @app.route('/user')
 def user():
-    if os.path.exists("C:\\Polos_Malta_Map\\output\\Mapa Polos Malta\\mapas.json"):
-        global logado
-        if logado == True:
-            return render_template("usuario.html")
-        if logado == False:
-            return redirect('/')
-    else:
-        webdriver.Chrome()
-        navegador = webdriver.Chrome()
-        navegador.get('https://github.com/AlvaroSalvino/Polos_Malta_Map/blob/main/mapas.json')
-        navegador.find_element(By.XPATH, "//*[@id='repos-sticky-header']/div[1]/div[2]/div[2]/div[1]/div/span/button").click()
-        sleep(3)
-        navegador.quit()
+    global logado
+    if logado == True:
         return render_template("usuario.html")
+    if logado == False:
+        return redirect('/')
 
 
 @app.route('/mapolo')
@@ -68,7 +66,7 @@ def mapolo():
             polo_coordenada['iparceiro_local'] = str(iparceiro_local)
             polo_coordenada['latitude'] = float(latitude)
             polo_coordenada['longitude'] = float(longitude)
-            polo_coordenada['popup'] = str(ipolo+' '+iparceiro+' '+iparceiro_local)
+            polo_coordenada['popup'] = str(ipolo + ' ' + iparceiro + ' ' + iparceiro_local)
         polos_mapa = folium.Map(location=[-5.1188834018636795, -42.803002102827975], zoom_start=5, control_scale=True,
                                 world_copy_jump=True, no_wrap=True)
         folium.LayerControl().add_to(polos_mapa)
@@ -76,7 +74,6 @@ def mapolo():
             coordenadas = (polo_coordenada['latitude'], polo_coordenada['longitude'])
             marcador = coordenadas
             folium.Marker(coordenadas, popup=polo_coordenada['popup'], tags=[marcador]).add_to(polos_mapa)
-
 
         TagFilterButton(marcador).add_to(polos_mapa)
         polos_mapa.get_root().render()
@@ -111,22 +108,14 @@ def mapolo():
 
     # polos_mapa.add_child(folium.LatLngPopup()
 
+
 @app.route("/login", methods=['POST'])
 def login():
     global logado
     usuario = request.form.get('nome')
     senha = request.form.get('senha')
-    with open("C:\\Polos_Malta_Map\\output\\Mapa polos Malta\\users.json") as usuarios:
-        lista = json.load(usuarios)
-        cont = 0
-        for c in lista:
-            cont+=1
-            if usuario == c['nome'] and senha == c['senha']:
-                logado = True
-                return redirect('/user')
-            if cont >= len(lista):
-                flash('Usuáio Inválido')
-                return redirect("/")
+
+
 
 @app.route("/inserirpolo")
 def inserirpolo():
@@ -135,6 +124,7 @@ def inserirpolo():
         return render_template("novopolo.html")
     if logado == False:
         return redirect('/')
+
 
 @app.route("/novopolo", methods=['POST'])
 def insere_instituicao():
@@ -167,5 +157,5 @@ def insere_instituicao():
 
 
 if __name__ == '__main__':
-#    webview.start()
+    #    webview.start()
     app.run()
