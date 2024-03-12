@@ -1,0 +1,265 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    position: sticky;
+    top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+    margin-right: 7vh;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ba0f14;
+}
+
+#login-out {
+    width: 100%;
+    top: 0;
+    height: 10vh;
+}
+
+#alerta {
+    color: rgb(2, 102, 4);
+    font-weight: 800;
+}
+
+.container {
+    width: 80%;
+    height: 80vh;
+    display: flex;
+    box-shadow: 16px 16px 10px rgb(0 0 0 / 19%);
+    border-radius: 30px;
+}
+
+.form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 30px 0px 0px 30px;
+}
+
+.form-image img {
+    width: 31rem;
+}
+
+.form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 3rem;
+    border-radius: 0px 30px 30px 0px;
+}
+
+.form-header {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #ba0f14;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+.login input {
+    margin: 0.6rem 0.6rem;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.8rem;
+}
+
+.login input:hover {
+    background-color: #eeeeee75;
+}
+
+.login input:focus-visible {
+    outline: 1px solid #ba0f14;
+}
+
+.button-entrar button {
+    width: 100%;
+    color: #fff;
+    margin-top: 2.5rem;
+    border: none;
+    background-color: #ba0f14;
+    padding: 0.62rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-entrar button:hover {
+    background-color: #0d00fff1;
+}
+
+@media screen and (max-width: 1330px) {
+    .form-image {
+        display: none;
+    }
+    .container {
+        width: 50%;
+    }
+    .input-group {
+        width: 65vh;
+    }
+    .form {
+        width: 100%;
+        border-radius: 30px;
+    }
+}
+
+@media screen and (max-width: 1064px) {
+    .container {
+        width: 90%;
+        height: auto;
+    }
+    .input-group {
+        flex-direction: column;
+        z-index: 5;
+        padding-right: 5rem;
+        max-height: 10rem;
+        overflow-y: scroll;
+        flex-wrap: nowrap;
+    }
+    .gender-inputs {
+        margin-top: 2rem;
+    }
+}
+
+.banner {
+    background-image: linear-gradient(#ffffff, #ffffff), url(/static/assets/BONECO-VERMELHO.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 60px 0px;
+    border-bottom: 1px solid #34f7b6;
+    width: 100%;
+}
+
+.logo {
+    background-color: #c6c4c4c9;
+    height: 260px;
+    width: 260px;
+    margin: auto;
+    border: solid 1px;
+    border-radius: 50%;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.banner .logo img {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.banner h1{
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: transparent;
+    background: -webkit-linear-gradient(#ba0f14, #f83d43);
+    -webkit-background-clip: text;
+}
+
+.banner-content button {
+    margin-top: 10px;
+    cursor: pointer;
+    color: #000;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 16px 32px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    background-color: transparent;
+    border-image: linear-gradient(#ba0f14, #f83d43);
+    border-image-slice: 10;
+    border-radius: 30px;
+}
+
+.elementskit-faq-header::before{
+    content: " ▶";
+}
+
+.banner-content button:hover {
+    color: #000;
+    border-image: linear-gradient(#ba0f14, #f83d43);
+    border-image-slice: 10;
+    background-color: #aea9a9;
+    border-radius: 0;
+}
+
+.banner-content a:hover {
+    background-color: #aea9a9;
+    border-radius: 0;
+}
+
+p {
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.banner-content {
+    color: white;
+    margin: auto;
+    text-align: center;
+}
+
+.sair {
+    color: #000;
+    border: none;
+    background-color: #fff;
+    padding: 0.62rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sair:hover {
+    background-color: #0d00fff1;
+    color: #fff;
+}

@@ -1,0 +1,31 @@
+{% extends "models/model-page-out.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="form-image">
+        <img src="/static/assets/BONECO-VERMELHO.png" alt="Faculdade Malta">
+    </div>
+    <div class="form">
+        <form action="login" method="post">
+            <div class="form-header">
+                <div class="title">
+                    <h1>Login</h1>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="login">
+                    <label>Usuário: </label>
+                    <input type="text" name="nome" placeholder="Nome de usuario" required>
+                </div>
+                <div class="login">
+                    <label>Senha: </label>
+                    <input type="password" name="senha" required>
+                </div>
+            </div>
+            <div class="button-entrar">
+                <button type="submit" value="entrar" id="btn-entrar">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
