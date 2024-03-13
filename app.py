@@ -2,23 +2,15 @@ import json
 import os
 import folium
 #import webview
+from models.connection_options.connection import DBConnectionHandler
 from folium.plugins import TagFilterButton, FastMarkerCluster
 from pymongo import MongoClient
 from flask import Flask, redirect, request, flash, render_template, render_template_string
 from selenium.webdriver.common.by import By
 
-connection_string = "mongodb+srv://alvarosalvino:Dmxsfsqp%40159@imap.aznrbqq.mongodb.net/?authSource=admin"
-client = MongoClient(connection_string)
-db_connection = client["imapdb"]
-print(db_connection)
-collection = db_connection.get_collection("usercolecao")
-print(collection)
 
 
-search_filter = {"nome": "Alvaro"}
-response = collection.find(search_filter)
 
-for registry in response: print(registry)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Ti-Malta"
@@ -116,25 +108,6 @@ def mapolo():
         return redirect('/')
 
     # polos_mapa.add_child(folium.LatLngPopup()
-
-@app.route("/login", methods=['POST'])
-def login():
-    global logado
-    usuario = request.form.get('nome')
-    senha = request.form.get('senha')
-    teste = db.users.users.find({'nome'}, {'senha'})
-    print(teste)
-    lista = usuarios
-    for c in usuarios:
-        cont = 0
-        for c in lista:
-            cont+=1
-            if usuario == c['nome'] and senha == c['senha']:
-                logado = True
-                return redirect('/user')
-            if cont >= len(lista):
-                flash('Usuáio Inválido')
-                return redirect("/")
 
 
 @app.route("/inserirpolo")
