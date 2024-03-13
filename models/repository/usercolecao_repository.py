@@ -13,3 +13,11 @@ class usercolecaoRepository:
         collection = self.__db_connection.get_collection(self.__collection_name)
         collection.insert_many(list_of_documents)
         return list_of_documents
+
+    def select_many(self) -> List[Dict]:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.find({ "nome": "Alvaro" })
+
+        for x in data:
+            print(x)
+            print()

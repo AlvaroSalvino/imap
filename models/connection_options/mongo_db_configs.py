@@ -1,7 +1,7 @@
 mongo_db_infos = {
-    "HOST": "ac-ditbxoz-shard-00-01.aznrbqq.mongodb.net",
+    "HOST": "imap.aznrbqq.mongodb.net",
     "PORT": "27017",
     "USERNAME": "alvarosalvino",
-    "PASSWORD": "Dmxsfsqp%40159",
+    "PASSWORD": "gruPzOlFAW1BfADK",
     "DB_NAME": "imapdb"
 }
