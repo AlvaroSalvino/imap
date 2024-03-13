@@ -1,19 +1,25 @@
 import json
 import os
-import pprint
 import folium
-import pymongo
 #import webview
 from folium.plugins import TagFilterButton, FastMarkerCluster
 from pymongo import MongoClient
-from time import sleep
-from selenium import webdriver
 from flask import Flask, redirect, request, flash, render_template, render_template_string
 from selenium.webdriver.common.by import By
 
-client = MongoClient("mongodb+srv://alvarosalvino:Dmxsfsqp%40159@imap.aznrbqq.mongodb.net/?retryWrites=true&w=majority&appName=imap")
-db = client.users
-user = db.users
+connection_string = "mongodb+srv://alvarosalvino:Dmxsfsqp%40159@imap.aznrbqq.mongodb.net/?authSource=admin"
+client = MongoClient(connection_string)
+db_connection = client["imapdb"]
+print(db_connection)
+collection = db_connection.get_collection("usercolecao")
+print(collection)
+
+
+search_filter = {"nome": "Alvaro"}
+response = collection.find(search_filter)
+
+for registry in response: print(registry)
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Ti-Malta"
 
