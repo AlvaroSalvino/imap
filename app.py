@@ -2,6 +2,7 @@ import json
 import os
 import folium
 #import webview
+from models.repository.usercolecao_repository import usercolecaoRepository
 from models.connection_options.connection import DBConnectionHandler
 from folium.plugins import TagFilterButton, FastMarkerCluster
 from pymongo import MongoClient
@@ -109,6 +110,23 @@ def mapolo():
 
     # polos_mapa.add_child(folium.LatLngPopup()
 
+@app.route("/login", methods=['POST'])
+def login():
+
+    global logado
+    usuario = request.form.get('nome')
+    senha = request.form.get('senha')
+    with open("C:\\Polos_Malta_Map\\output\\Mapa polos Malta\\users.json") as usuarios:
+        lista = json.load(usuarios)
+        cont = 0
+        for c in lista:
+            cont+=1
+            if usuario == c['nome'] and senha == c['senha']:
+                logado = True
+                return redirect('/user')
+            if cont >= len(lista):
+                flash('Usuáio Inválido')
+                return redirect("/")
 
 @app.route("/inserirpolo")
 def inserirpolo():
