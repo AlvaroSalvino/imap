@@ -1,6 +1,8 @@
 from pymongo.server_api import ServerApi
 from models.connection_options.connection import DBConnectionHandler
+import models.connection_options.mongo_db_configs
 from models.repository.usercolecao_repository import usercolecaoRepository
+
 
 db_hande = DBConnectionHandler()
 db_hande.connect_to_db()

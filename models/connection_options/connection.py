@@ -4,11 +4,10 @@ from .mongo_db_configs import mongo_db_infos
 
 class DBConnectionHandler:
     def __init__(self):
-        self.__connection_string = "mongodb://{}:{}@{}:{}/?authSource=admin".format(
+        self.__connection_string = "mongodb+srv://{}:{}@{}/?authSource=admin".format(
             mongo_db_infos["USERNAME"],
             mongo_db_infos["PASSWORD"],
-            mongo_db_infos["HOST"],
-            mongo_db_infos["PORT"]
+            mongo_db_infos["HOST"]
         )
         self.__database_name = mongo_db_infos["DB_NAME"]
         self.__client = None
