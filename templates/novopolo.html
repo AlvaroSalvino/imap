@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Inserir novo Polo</title>
+    <style>
+        p {
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,10 +55,15 @@
                         <label>Cidade: </label>
                         <input type="text" name="cidade" placeholder="Nome da Cidade" required>
                     </div>
-                    <!-- <div class="login">
-                        <label>Status: </label>
-                        <input type="text" name="status" placeholder="Status" required>
-                    </div> -->
+                    <div class="login">
+                        <label>Tipo: </label>
+                        <select name="tipo" id="tipo">
+                            <option value="amarelo">Amarelo</option>
+                            <option value="preto">Branco</option>
+                            <option value="verde">Verde</option>
+                            <option value="vermelho">vermelho</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="button-entrar">
                     <button type="submit" value="submit" id="btn-criar">Criar</button>

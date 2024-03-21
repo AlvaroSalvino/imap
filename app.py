@@ -1,7 +1,5 @@
-import json
-import os
 import folium
-#import webview
+import webview
 from folium.plugins import TagFilterButton
 from geopy.geocoders import Bing
 from pymongo import MongoClient
@@ -14,7 +12,7 @@ client = MongoClient('mongodb+srv://alvarosalvino:gruPzOlFAW1BfADK@imap.aznrbqq.
 db = client['imapdb']
 collection = db['usercolecao']
 
-#window = webview.create_window('Mapa de Polos Malta', app)
+window = webview.create_window('Mapa de Polos Malta', app)
 
 logado = False
 
@@ -40,14 +38,22 @@ def mapolo():
                                 world_copy_jump=True, no_wrap=True)
         folium.LayerControl().add_to(polos_mapa)
         tags = []
+        tipo_cores = {1: 'beige', 2: 'black', 3: 'green', 4: 'red'}
         for polo_coordenada in polos_coordenadas:
-            latitude, longitude = map(float, polo_coordenada['endereco'].split())
-            coordenadas = (latitude, longitude)
-            polo_coordenada['popup'] = str(polo_coordenada['polo']+' '+polo_coordenada['parceiro']+' '+polo_coordenada['parceiro_local'])
-            tags.extend([polo_coordenada['polo'], polo_coordenada['parceiro'], polo_coordenada['parceiro_local']])
-            folium.Marker(coordenadas, popup=polo_coordenada['popup'], tags=[polo_coordenada['polo'], polo_coordenada['parceiro'], polo_coordenada['parceiro_local']]).add_to(polos_mapa)
+            endereco = polo_coordenada.get('endereco')
+            if endereco:
+                latitude, longitude = map(float, endereco.split())
+                coordenadas = (latitude, longitude)
 
-        tags.sort()  # Ordena as tags em ordem alfabética
+                html = f'<p style="color: black;"><b>Polo:</b> {polo_coordenada["polo"]}<br><b>Parceiro:</b> {polo_coordenada["parceiro"]}<br><b>Parceiro Local:</b> {polo_coordenada["parceiro_local"]}<br><b>Tipo:</b> {polo_coordenada["tipo"]}'
+                iframe = folium.IFrame(html=html, width=200, height=100)
+                popup = folium.Popup(iframe, max_width=200)
+
+                cor_icone = tipo_cores.get(polo_coordenada['tipo'], 'white')
+                marker = folium.Marker(coordenadas, popup=popup, icon=folium.Icon(color=cor_icone))
+                marker.add_to(polos_mapa)
+
+        tags.sort()
         TagFilterButton(tags).add_to(polos_mapa)
         polos_mapa.get_root().render()
         header = polos_mapa.get_root().header.render()
@@ -76,6 +82,7 @@ def mapolo():
 
     else:
         return redirect('/')
+
 
 
 @app.route("/login", methods=['POST'])
@@ -112,18 +119,30 @@ def inserirpolo():
 def insere_instituicao():
     if 'logado' in session and session['logado'] == True:
         if request.method == 'POST':
-            geolocator = Bing(api_key="Al-_22HyOgNBpnd_1y9JqJB82qwqya-LHAfkvtszL6HT6gUuxc8C-Khq9whz63IQ")
+            cor_para_numero = {
+                'amarelo': 1,
+                'preto': 2,
+                'verde': 3,
+                'vermelho': 4
+            }
+
+            geolocator_bing = Bing(api_key="Al-_22HyOgNBpnd_1y9JqJB82qwqya-LHAfkvtszL6HT6gUuxc8C-Khq9whz63IQ")
             polo = request.form.get('polo')
             parceiro = request.form.get('parceiro')
             parceiro_local = request.form.get('parceiro_local')
             cidade = request.form.get('cidade')
-            location = geolocator.geocode(cidade)
+            tipo = request.form.get('tipo')
+
+            tipo = cor_para_numero.get(tipo, tipo)
+
+            location = geolocator_bing.geocode(cidade)
             endereco = f"{location.latitude} {location.longitude}"
             novo_polo = {
                 "polo": polo,
                 "parceiro": parceiro,
                 "parceiro_local": parceiro_local,
-                "endereco": endereco
+                "endereco": endereco,
+                "tipo": tipo
             }
             db['mapacolecao'].insert_one(novo_polo)
             flash('Inserção bem sucedida')
@@ -134,5 +153,4 @@ def insere_instituicao():
 
 
 if __name__ == '__main__':
-#    webview.start()
-    app.run(debug=False)
+    webview.start()
