@@ -48,9 +48,10 @@ def mapolo():
                 html = f'<p style="color: black;"><b>Polo:</b> {polo_coordenada["polo"]}<br><b>Parceiro:</b> {polo_coordenada["parceiro"]}<br><b>Parceiro Local:</b> {polo_coordenada["parceiro_local"]}<br><b>Tipo:</b> {polo_coordenada["tipo"]}'
                 iframe = folium.IFrame(html=html, width=200, height=100)
                 popup = folium.Popup(iframe, max_width=200)
+                tags.extend([polo_coordenada['polo'], polo_coordenada['parceiro'], polo_coordenada['parceiro_local']])
 
                 cor_icone = tipo_cores.get(polo_coordenada['tipo'], 'white')
-                marker = folium.Marker(coordenadas, popup=popup, icon=folium.Icon(color=cor_icone))
+                marker = folium.Marker(coordenadas, popup=popup, icon=folium.Icon(color=cor_icone), tags=tags)
                 marker.add_to(polos_mapa)
 
         tags.sort()
@@ -90,7 +91,6 @@ def login():
     usuario = request.form.get('nome')
     senha = request.form.get('senha')
     usercolecao = collection.find_one({'nome': usuario, 'senha': senha})
-    print(collection.find_one())
     if usercolecao:
         session['logado'] = True
         return redirect('/user')
