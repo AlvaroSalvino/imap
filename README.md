@@ -18,7 +18,7 @@ Esta versão específica foi criada para o gerenciamento dos polos de uma rede d
 
 ### Telas da Aplicação
 O aplicativo possui **quatro telas principais**, cada uma com uma funcionalidade específica:
-1. **Tela inicial**: Página de entrada na aplicação.
+1. **Tela inicial**: Página de entrada da aplicação.
 2. **Escolha de caminho**: Direciona o usuário para diferentes funcionalidades.
 3. **Mapa interativo**: Visualização e exploração do mapa.
 4. **Cadastro de nova localização**: Inserção de novos polos diretamente no mapa.
@@ -31,7 +31,7 @@ O aplicativo possui **quatro telas principais**, cada uma com uma funcionalidade
 
 ![Mapa de Polos](static/assets/imagens%20publicas/mapa.PNG)
 
-O mapa conta com várias funcionalidades para facilitar a navegação e exploração:
+O mapa oferece diversas funcionalidades para facilitar a navegação e exploração:
 - **Zoom interativo**;
 - **Pins demonstrativos**: Marcam os locais cadastrados;
 - **Filtros**: Refine sua busca por critérios específicos;
@@ -65,7 +65,7 @@ O **Polos_Malta_Map** foi desenvolvido utilizando o framework **Flask**. Confira
      - Gera um mapa interativo e visualmente intuitivo.  
      - Com base nos dados de latitude e longitude, insere automaticamente um **Pin** no local correto no mapa.
 
-Essas funcionalidades oferecem uma experiência completa e eficiente para planejamento e gestão estratégica dos polos da faculdade.
+Essas funcionalidades oferecem uma experiência completa e eficiente para o planejamento e gestão estratégica dos polos da faculdade.
 
 ---
 
